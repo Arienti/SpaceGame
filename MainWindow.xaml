@@ -1,0 +1,51 @@
+﻿<Window x:Class="SpaceInvaders.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tests"
+        mc:Ignorable="d"
+        Title="Space Invaders" WindowStartupLocation="CenterScreen" Height="700" Width="700" Background="Azure" ResizeMode="CanMinimize">
+
+    <Grid Background="#FF1FF914" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23*"/>
+            <RowDefinition Height="561*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Label Name="Score" Content="Score: 0" FontSize="14" FontWeight="Bold" Margin="20,-2,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="auto"/>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock Text="Space Invaders" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="0,2,0,0"  HorizontalAlignment="Center" Width="auto"/>
+        </StackPanel>
+        <StackPanel>
+            <Label Name="Damage" Content="Damage: 0" FontSize="14" FontWeight="Bold" Margin="0,-2,20,0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="auto"/>
+        </StackPanel>
+        <Canvas x:Name="Space" Grid.Row="1" Focusable="True" Background="Blue" KeyDown="Space_KeyDown" KeyUp="Space_KeyUp">
+            <Rectangle x:Name="Ship" Fill="Yellow" Height="50" Width="50" Canvas.Left="350" Canvas.Top="562" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle x:Name="ShieldRec" Height="50" Width="50" Canvas.Left="100" Canvas.Top="200"/>
+            <Ellipse x:Name="AlienShips" Height="100" Canvas.Left="730" Canvas.Top="321" Width="100" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+                <Ellipse.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation From="0" To="360" RepeatBehavior="Forever" Duration="0:0:4"
+                                    Storyboard.TargetProperty="(Rectangle.RenderTransform).(TransformGroup.Children)[0].(RotateTransform.Angle)"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Ellipse.Triggers>
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="D:\SpaceGame\images\ufoRed.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Canvas>
+    </Grid>
+</Window>
