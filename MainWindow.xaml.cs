@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceInvaders.business;
+using System;
 using System.Collections.Generic;
 using System.Media;
 using System.Windows;
@@ -36,6 +37,7 @@ namespace SpaceInvaders
         double AlienStep = 0;
 
         bool gameover = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -44,16 +46,18 @@ namespace SpaceInvaders
             timer.Start();
             Space.Focus();
             Space.Children.Remove(ShieldRec);
-            
+
+            ImageBrush.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}ufoRed.png"));
+
             ImageBrush background = new ImageBrush();
-            background.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\Backgroud.png"));
+            background.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}Backgroud.png"));
             background.TileMode = TileMode.Tile;
             background.Viewport = new Rect(0, 0, 1, 1);
             background.ViewboxUnits = BrushMappingMode.RelativeToBoundingBox;
             Space.Background = background;
 
             ImageBrush stars = new ImageBrush();
-            stars.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\star2.png"));
+            stars.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}star2.png"));
             Random randomStars = new Random();
             var starsCount = randomStars.Next(15, 25);
             for (int i = 0; i < starsCount; i++)
@@ -71,7 +75,7 @@ namespace SpaceInvaders
                 Space.Children.Add(star);
             }
             ImageBrush image = new ImageBrush();
-            image.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\SpaceShip.png"));
+            image.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}SpaceShip.png"));
             Ship.Fill = image;
             Space.Children.Remove(AlienShips);
         }
@@ -188,51 +192,13 @@ namespace SpaceInvaders
             }
             if (e.Key == Key.Space)
             {
-                SoundPlayer hit = new SoundPlayer("D:\\SpaceGame\\Audio\\laserhit.wav");
+                SoundPlayer hit = new SoundPlayer($"{App.audioLocation}laserhit.wav");
                 hit.Load();
                 hit.Play();
                 AddBullets();
             }
         }
-        public class Enemies
-        {
-            public static int enemyLimit = new Random().Next(4, 6);
-            public static int enemyCounts = 1;
-            public int Enemysprite = 0;
-            public static int speed = 1;
-            public int Height = 60;
-            public int Width = 50;
-            public int X = new Random().Next(0, (int)Application.Current.MainWindow.Width - 50);
-            public int Y = -300;
-            public Rectangle enemyRec = new Rectangle();
-            ImageBrush enemyImage = new ImageBrush();
-            public void DrawEnemy()
-            {
-                Random r = new Random();
 
-                Enemysprite = r.Next(1, 4);
-
-                switch (Enemysprite)
-                {
-                    case 1:
-                        enemyImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\enemyBlack1.png"));
-                        break;
-                    case 2:
-                        enemyImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\enemyBlue2.png"));
-                        break;
-                    case 3:
-                        enemyImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\enemyGreen3.png"));
-                        break;
-                    case 4:
-                        enemyImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\enemyRed4.png"));
-                        break;
-                }
-                enemyRec.Height = 50;
-                enemyRec.Width = 50;
-                enemyRec.Fill = enemyImage;
-            }
-        }
-        
         public void AddEnemy()
         {
             Enemies enemies = new Enemies();
@@ -241,7 +207,7 @@ namespace SpaceInvaders
             enemies.DrawEnemy();
             Canvas.SetLeft(enemies.enemyRec, enemies.X);
             Canvas.SetTop(enemies.enemyRec, enemies.Y);
-            Space.Children.Add(enemies.enemyRec); 
+            Space.Children.Add(enemies.enemyRec);
         }
         public void MoveEnemy()
         {
@@ -252,7 +218,7 @@ namespace SpaceInvaders
             for (int i = 0; i < enemyList.Count; i++)
             {
                 Canvas.SetTop(enemyList[i].enemyRec, Canvas.GetTop(enemyList[i].enemyRec) + Enemies.speed);
-                if ((score >= 200) && (score <400))
+                if ((score >= 200) && (score < 400))
                 {
                     Enemies.enemyLimit = new Random().Next(6, 8);
                 }
@@ -307,17 +273,17 @@ namespace SpaceInvaders
                         }
                         if (shielddamage <= 5)
                         {
-                            shieldImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\shield3.png"));
+                            shieldImage.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}shield3.png"));
                             shields.Fill = shieldImage;
                         }
                         if (shielddamage <= 3)
                         {
-                            shieldImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\shield2.png"));
+                            shieldImage.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}shield2.png"));
                             shields.Fill = shieldImage;
                         }
                         if (shielddamage == 1)
                         {
-                            shieldImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\shield1.png"));
+                            shieldImage.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}shield1.png"));
                             shields.Fill = shieldImage;
                         }
                         if (shielddamage <= 0)
@@ -346,28 +312,9 @@ namespace SpaceInvaders
                         break;
                     }
                 }
-                
             }
         }
-        
-        public class Bullets
-        {
-            public double X = 0;
-            public double Y = 0;
-            public int Height = 30;
-            public int Width = 6;
-            public int speed = 20;
-            public static int bulletLevel = 0;
-            public Rectangle bulletRectangle = new Rectangle();
-            public void Draw()
-            {
-                ImageBrush bulletImage = new ImageBrush();
-                bulletImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\laserBlue01.png"));
-                bulletRectangle.Height = Height;
-                bulletRectangle.Width = Width;
-                bulletRectangle.Fill = bulletImage;
-            }
-        }
+
         public void AddBullets()
         {
             Bullets bullets = new Bullets();
@@ -460,48 +407,6 @@ namespace SpaceInvaders
                 }
             }
         }
-        public class PowerUp
-        {
-            public int x = 0;
-            public int y = -30;
-            public int height = 30;
-            public int width = 30;
-            public static int Shieldcount = new Random().Next(3000,4500);
-            public static int PowerUpTime = new Random().Next(3200,4800);
-            public int speed = 3;
-            public bool shieldAppear = false;
-            public bool bulletAppear = false;
-            public Rectangle shieldRec = new Rectangle();
-            public Rectangle PowerUpBullets = new Rectangle();
-            public ImageBrush shieldImage = new ImageBrush();
-            public ImageBrush BulletsIcon = new ImageBrush();
-            public void AddPowerUpIcons()
-            {
-                Random r = new Random();
-
-                shieldImage.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\shield_silver.png"));
-                shieldRec.Height = height;
-                shieldRec.Width = width;
-                shieldRec.Tag = "shield";
-                shieldRec.StrokeThickness = 1;
-                shieldRec.Stroke = new SolidColorBrush(Colors.Azure);
-                shieldRec.Fill = shieldImage;
-                x = r.Next(0, (int)Application.Current.MainWindow.Width - width);
-                Canvas.SetLeft(shieldRec, x);
-                Canvas.SetTop(shieldRec, y);
-
-                BulletsIcon.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\bolt_bronze.png"));
-                PowerUpBullets.Height = height;
-                PowerUpBullets.Width = width;
-                PowerUpBullets.Tag = "BulletsIcon";
-                PowerUpBullets.Stroke = new SolidColorBrush(Colors.White);
-                PowerUpBullets.StrokeThickness = 3;
-                PowerUpBullets.Fill = BulletsIcon;
-                
-                Canvas.SetLeft(PowerUpBullets, x);
-                Canvas.SetTop(PowerUpBullets, y);
-            }
-        }
         public void PowerUpIcons()
         {
             PowerUp powerUp = new PowerUp();
@@ -513,7 +418,7 @@ namespace SpaceInvaders
                 powerUp.AddPowerUpIcons();
                 Space.Children.Add(powerUp.shieldRec);
 
-                PowerUp.Shieldcount = new Random().Next(3000,4500);
+                PowerUp.Shieldcount = new Random().Next(3000, 4500);
             }
             else
             {
@@ -527,7 +432,7 @@ namespace SpaceInvaders
                 rectangleList.Add(powerUp.PowerUpBullets);
                 powerUp.AddPowerUpIcons();
                 Space.Children.Add(powerUp.PowerUpBullets);
-                PowerUp.PowerUpTime = new Random().Next(3200,4800);
+                PowerUp.PowerUpTime = new Random().Next(3200, 4800);
             }
             else
             {
@@ -544,7 +449,7 @@ namespace SpaceInvaders
                 {
                     Canvas.SetTop(i, Canvas.GetTop(i) + power.speed);
                     Rect Shield = new Rect(Canvas.GetLeft(i), Canvas.GetTop(i), i.Height, i.Width);
-                    Rect ship = new(Canvas.GetLeft(Ship), Canvas.GetTop(Ship),Ship.Height, Ship.Width);
+                    Rect ship = new(Canvas.GetLeft(Ship), Canvas.GetTop(Ship), Ship.Height, Ship.Width);
 
                     if (Canvas.GetTop(i) > Canvas.GetTop(Ship) + Ship.Height)
                     {
@@ -552,7 +457,7 @@ namespace SpaceInvaders
                         Space.Children.Remove(i);
                         break;
                     }
-                    if(Shield.IntersectsWith(ship)) 
+                    if (Shield.IntersectsWith(ship))
                     {
                         shieldON = true;
                         shielddamage = 5;
@@ -562,7 +467,7 @@ namespace SpaceInvaders
                         break;
                     }
                 }
-                if((string)i.Tag== "BulletsIcon")
+                if ((string)i.Tag == "BulletsIcon")
                 {
                     Canvas.SetTop(i, Canvas.GetTop(i) + power.speed);
                     Rect powerUp = new Rect(Canvas.GetLeft(i), Canvas.GetTop(i), i.Height, i.Width);
@@ -576,7 +481,7 @@ namespace SpaceInvaders
                     }
                     if (powerUp.IntersectsWith(ship))
                     {
-                     //   Bullets bullets = new Bullets();
+                        //   Bullets bullets = new Bullets();
                         Bullets.bulletLevel++;
                         rectangleList.Remove(i);
                         Space.Children.Remove(i);
@@ -592,7 +497,7 @@ namespace SpaceInvaders
         public void ShieldActivated()
         {
             ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = new BitmapImage(new Uri("D:\\SpaceGame\\images\\shield3.png"));
+            imageBrush.ImageSource = new BitmapImage(new Uri($"{App.imagesLocation}shield3.png"));
             Rectangle shieldActivated = new Rectangle()
             {
                 Width = Ship.Width * 2,
@@ -604,8 +509,8 @@ namespace SpaceInvaders
             {
                 activated = true;
                 rectangleList.Add(shieldActivated);
-                Canvas.SetLeft(shieldActivated, Canvas.GetLeft(Ship) - Ship.Width/2);
-                Canvas.SetTop(shieldActivated, Canvas.GetTop(Ship) - Ship.Height/2);
+                Canvas.SetLeft(shieldActivated, Canvas.GetLeft(Ship) - Ship.Width / 2);
+                Canvas.SetTop(shieldActivated, Canvas.GetTop(Ship) - Ship.Height / 2);
                 Space.Children.Add(shieldActivated);
             }
         }

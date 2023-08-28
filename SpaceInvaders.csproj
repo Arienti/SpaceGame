@@ -7,4 +7,70 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Audio\laserhit.wav" />
+    <None Remove="images\Backgroud.png" />
+    <None Remove="images\bolt_bronze.png" />
+    <None Remove="images\enemyBlack1.png" />
+    <None Remove="images\enemyBlue2.png" />
+    <None Remove="images\enemyGreen3.png" />
+    <None Remove="images\enemyRed4.png" />
+    <None Remove="images\laserBlue01.png" />
+    <None Remove="images\shield1.png" />
+    <None Remove="images\shield2.png" />
+    <None Remove="images\shield3.png" />
+    <None Remove="images\shield_silver.png" />
+    <None Remove="images\SpaceShip.png" />
+    <None Remove="images\star2.png" />
+    <None Remove="images\ufoRed.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Audio\laserhit.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\Backgroud.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\bolt_bronze.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\enemyBlack1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\enemyBlue2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\enemyGreen3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\enemyRed4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\laserBlue01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\shield1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\shield2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\shield3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\shield_silver.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\SpaceShip.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\star2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ufoRed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

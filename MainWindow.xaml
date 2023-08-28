@@ -43,7 +43,7 @@
                     </EventTrigger>
                 </Ellipse.Triggers>
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="D:\SpaceGame\images\ufoRed.png"/>
+                    <ImageBrush x:Name="ImageBrush" />
                 </Ellipse.Fill>
             </Ellipse>
         </Canvas>
