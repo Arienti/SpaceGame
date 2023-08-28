@@ -218,25 +218,25 @@ namespace SpaceInvaders
             for (int i = 0; i < enemyList.Count; i++)
             {
                 Canvas.SetTop(enemyList[i].enemyRec, Canvas.GetTop(enemyList[i].enemyRec) + Enemies.speed);
-                if ((score >= 200) && (score < 400))
+                if ((score >= 200) && (score < 600))
                 {
                     Enemies.enemyLimit = new Random().Next(6, 8);
                 }
-                if ((score >= 400) && (score < 800))
+                if ((score >= 600) && (score < 1000))
                 {
                     Enemies.speed = (int)1.5;
                     Canvas.SetTop(enemyList[i].enemyRec, Canvas.GetTop(enemyList[i].enemyRec) + Enemies.speed);
                 }
-                if ((score >= 800) && (score < 1400))
+                if ((score >= 1000) && (score < 1600))
                 {
                     Enemies.speed = 3;
                     Enemies.enemyLimit = new Random().Next(8, 12);
                 }
-                if ((score >= 2000) && (score < 1000))
+                if ((score >= 1600) && (score < 4000))
                 {
                     Enemies.enemyLimit = new Random().Next(12, 15);
                 }
-                if (score > 1000)
+                if (score > 4000)
                 {
                     Enemies.enemyLimit = new Random().Next(15, 20);
                 }
@@ -432,7 +432,7 @@ namespace SpaceInvaders
                 rectangleList.Add(powerUp.PowerUpBullets);
                 powerUp.AddPowerUpIcons();
                 Space.Children.Add(powerUp.PowerUpBullets);
-                PowerUp.PowerUpTime = new Random().Next(3200, 4800);
+                PowerUp.PowerUpTime = new Random().Next(2800, 4200);
             }
             else
             {
@@ -481,7 +481,6 @@ namespace SpaceInvaders
                     }
                     if (powerUp.IntersectsWith(ship))
                     {
-                        //   Bullets bullets = new Bullets();
                         Bullets.bulletLevel++;
                         rectangleList.Remove(i);
                         Space.Children.Remove(i);

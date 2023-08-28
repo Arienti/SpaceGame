@@ -14,7 +14,7 @@ namespace SpaceInvaders.business
         public int height = 30;
         public int width = 30;
         public static int Shieldcount = new Random().Next(3000, 4500);
-        public static int PowerUpTime = new Random().Next(3200, 4800);
+        public static int PowerUpTime = new Random().Next(2800, 4200);
         public int speed = 3;
         public bool shieldAppear = false;
         public bool bulletAppear = false;
