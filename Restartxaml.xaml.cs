@@ -19,7 +19,10 @@ namespace SpaceInvaders
         private void Restart_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-            Process.Start(Environment.ProcessPath);
+            if (Environment.ProcessPath != null)
+            {
+                Process.Start(Environment.ProcessPath);
+            }
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
